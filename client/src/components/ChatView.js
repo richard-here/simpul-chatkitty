@@ -4,6 +4,8 @@ import {
   useMediaQuery,
   useTheme, Stack, Dialog, DialogTitle, DialogContent, DialogContentText, TextField,
   Typography,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { React, useState } from 'react';
@@ -30,9 +32,30 @@ function ChatView(props) {
     username: '',
     loading: false,
   });
+  const [snackbarState, setSnackbarState] = useState({
+    open: false,
+    message: '',
+    severity: 'error',
+  });
 
   const filters = { members: { $in: [sessionStorage.getItem('id')] } };
   const sort = { last_message_at: -1 };
+
+  const toggleDialog = () => {
+    setDialogState({ ...dialogState, open: !dialogState.open });
+  };
+  const handleChannelDialogClose = () => {
+    setDialogState({
+      loading: false, open: false, username: '', groupName: '',
+    });
+  };
+  const handleSnackbarClose = () => {
+    setSnackbarState({
+      ...snackbarState,
+      open: false,
+      message: '',
+    });
+  };
 
   const createChannel = async () => {
     setDialogState({ ...dialogState, loading: true });
@@ -40,8 +63,8 @@ function ChatView(props) {
     const userExist = userQuery.users.length !== 0;
 
     if (!userExist) {
-      // Show dialog
-      console.error('User does not exist');
+      setSnackbarState({ open: true, message: 'User you invited does not exist', severity: 'error' });
+      handleChannelDialogClose();
       return;
     }
     const newChannel = chatClient.channel('messaging', {
@@ -52,20 +75,13 @@ function ChatView(props) {
     try {
       await newChannel.create();
     } catch (e) {
-      // Show dialog
-      console.error('An error occurred', e);
+      handleChannelDialogClose();
+      setSnackbarState({ open: true, message: 'An error occurred when creating the chatroom', severity: 'error' });
     }
     setDialogState({
       username: '', groupName: '', loading: false, open: false,
     });
-  };
-  const toggleDialog = () => {
-    setDialogState({ ...dialogState, open: !dialogState.open });
-  };
-  const handleChannelDialogClose = () => {
-    setDialogState({
-      ...dialogState, open: false, username: '', groupName: '',
-    });
+    setSnackbarState({ open: true, message: 'Chatroom created or already exists', severity: 'success' });
   };
 
   return (
@@ -116,11 +132,16 @@ function ChatView(props) {
               variant="contained"
               loading={dialogState.loading}
             >
-              <Typography variant="button">Create Channel</Typography>
+              <Typography variant="button">Create Chatroom</Typography>
             </LoadingButton>
           </Stack>
         </DialogContent>
       </Dialog>
+      <Snackbar open={snackbarState.open} autoHideDuration={1000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity={snackbarState.severity} sx={{ width: '100%' }}>
+          {snackbarState.message}
+        </Alert>
+      </Snackbar>
     </Stack>
   );
 }
