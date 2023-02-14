@@ -67,11 +67,11 @@ function ChatView(props) {
   };
 
   const validateGroupName = (inputGroupName) => {
-    const invalid = !/^.{1,}$/.test(inputGroupName);
+    const invalid = !/^.{1,20}$/.test(inputGroupName);
     if (invalid) {
       setDialogState({
         ...dialogState,
-        groupNameHelperText: 'Group name is required',
+        groupNameHelperText: 'Group name is required, max 20 characters',
         groupNameInvalid: true,
       });
     } else {
@@ -86,6 +86,12 @@ function ChatView(props) {
 
   const createChannel = async () => {
     setDialogState({ ...dialogState, loading: true });
+    const gnInvalid = validateGroupName(dialogState.groupName);
+    const uInvalid = validateUsername(dialogState.username);
+    if (gnInvalid || uInvalid) {
+      return;
+    }
+
     const userQuery = await chatClient.queryUsers({ id: { $in: [dialogState.username] } });
     const userExist = userQuery.users.length !== 0;
 
@@ -95,7 +101,7 @@ function ChatView(props) {
       return;
     }
     const newChannel = chatClient.channel('messaging', {
-      name: dialogState.groupName,
+      name: `${dialogState.groupName} - ${sessionStorage.getItem('id')}, ${dialogState.username}`,
       members: [sessionStorage.getItem('id'), dialogState.username],
     });
 
@@ -137,6 +143,7 @@ function ChatView(props) {
           </DialogContentText>
           <Stack direction="column" spacing={2}>
             <TextField
+              required
               value={dialogState.groupName}
               onChange={(e) => (setDialogState({ ...dialogState, groupName: e.target.value }))}
               id="group-name"
@@ -145,8 +152,10 @@ function ChatView(props) {
               onBlur={(e) => validateGroupName(e.target.value)}
               error={dialogState.groupNameInvalid}
               helperText={dialogState.groupNameHelperText}
+              inputProps={{ maxLength: 15 }}
             />
             <TextField
+              required
               value={dialogState.username}
               onChange={(e) => (setDialogState({ ...dialogState, username: e.target.value }))}
               id="group-username"
@@ -155,6 +164,7 @@ function ChatView(props) {
               onBlur={(e) => validateUsername(e.target.value)}
               error={dialogState.usernameInvalid}
               helperText={dialogState.usernameHelperText}
+              inputProps={{ maxLength: 20 }}
             />
             <LoadingButton
               onClick={createChannel}

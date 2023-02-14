@@ -86,6 +86,7 @@ function Auth(props) {
           </Stack>
           <Stack spacing={2}>
             <TextField
+              required
               value={moniker}
               onChange={(e) => (setMoniker(e.target.value) || usernameInvalid)
                 && validateUsername(e.target.value)}
@@ -95,8 +96,10 @@ function Auth(props) {
               label="Username"
               variant="standard"
               helperText={usernameHelperText}
+              inputProps={{ maxLength: 20 }}
             />
             <TextField
+              required
               value={password}
               onChange={(e) => (setPassword(e.target.value) || passwordInvalid)
                 && validatePassword(e.target.value)}
@@ -107,6 +110,7 @@ function Auth(props) {
               type="password"
               variant="standard"
               helperText={passwordHelperText}
+              inputProps={{ maxLength: 25 }}
             />
             <LoadingButton
               onClick={handleSubmitForm}
