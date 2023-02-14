@@ -1,0 +1,15 @@
+.str-chat__thread.str-chat__thread--full {
+  width: 100%;
+}
+
+.str-chat__thread .str-chat__message-input {
+  margin-top: auto;
+}
+
+.str-chat__channel .str-chat__container:has(.str-chat__thread--full) .str-chat__main-panel  {
+  width: 0%;
+}
+
+.str-chat__channel-list-messenger__main {
+  position: relative;
+}

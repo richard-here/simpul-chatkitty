@@ -6,8 +6,8 @@ import Auth from './components/Auth';
 import ChatView from './components/ChatView';
 import theme from './theme/Theme';
 import 'stream-chat-react/dist/css/v2/index.css';
-import './stream-override.css';
-import './layout.css';
+import './styles/stream-override.css';
+import './styles/layout.css';
 
 function App() {
   const [state, setState] = useState({
@@ -73,7 +73,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box flexGrow={1}>
+      <Box flexGrow={1} height="100%">
         { !state.isAuthenticated ? (
           <Auth cb={onLoginCallback} open loading={loading} />
         ) : (
