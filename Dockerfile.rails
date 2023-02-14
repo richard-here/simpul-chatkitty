@@ -9,4 +9,5 @@ RUN gem install rails
 WORKDIR /opt/app
 
 # Run a shell
+EXPOSE 3010
 CMD ["/bin/sh"]

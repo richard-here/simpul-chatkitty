@@ -39,5 +39,12 @@ module Server
     config.api_only = true
     config.stream_api_key = ENV['API_KEY']
     config.stream_api_secret = ENV['API_SECRET']
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options]
+      end
+    end
   end
 end

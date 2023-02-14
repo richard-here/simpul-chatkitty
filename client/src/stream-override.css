@@ -1,0 +1,9 @@
+.str-chat {
+  --str-chat__primary-color: #281876;
+  --str-chat__active-primary-color: #0c0142;
+  --str-chat__surface-color: #f5f5f5;
+  --str-chat__secondary-surface-color: #f0fbff;
+  --str-chat__primary-surface-color: #f4cdff;
+  --str-chat__primary-surface-color-low-emphasis: #fcf0ff;
+  --str-chat__border-radius-circle: 5px;
+}

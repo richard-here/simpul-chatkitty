@@ -29,10 +29,19 @@ class UsersController < ApplicationController
   def chat_token(username)
     client = StreamChat::Client.new(api_key = Rails.configuration.stream_api_key, api_secret = Rails.configuration.stream_api_secret)
     token = client.create_token(username)
-    client.update_user({ id: username, name: username })
+    client.upsert_users([
+      { :id => 'admin', :role => 'admin', :name => 'admin' },
+      { :id => username, :name => username },
+    ])
 
-    chan = client.channel('messaging', channel_id: 'rails-chat')
-    chan.create('admin')
+    chan = client.channel(
+      'messaging',
+      channel_id: 'rails-chat',
+      data: {
+        'name' => 'Free Chat',
+      }
+    )
+    chan.create(username)
     chan.add_members(['admin', username])
     token
 
