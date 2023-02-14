@@ -96,7 +96,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box flexGrow={1} height="100%">
+      <Box flexGrow={1} height="100%" width="100vw">
         { !state.isAuthenticated ? (
           <Auth
             cb={onLoginCallback}

@@ -22,7 +22,7 @@ import CustomChannelListMessengerWrapper from './getstream/CustomChannelListMess
 
 function ChatView(props) {
   const theme = useTheme();
-  const smallerThanBreakpoint = useMediaQuery(theme.breakpoints.down('md'));
+  const smallerThanBreakpoint = useMediaQuery(theme.breakpoints.down('lg'));
   const chatClient = props.chatClient;
   const { onShowSnackbarCb } = props;
   const [dialogState, setDialogState] = useState({

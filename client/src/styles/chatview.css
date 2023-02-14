@@ -7,7 +7,7 @@
 }
 
 .str-chat__channel .str-chat__container:has(.str-chat__thread--full) .str-chat__main-panel  {
-  width: 0%;
+  display: none;
 }
 
 .str-chat__channel-list-messenger__main {
