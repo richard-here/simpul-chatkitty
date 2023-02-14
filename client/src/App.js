@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { StreamChat } from 'stream-chat';
-import { Box, ThemeProvider } from '@mui/material';
+import {
+  Box, ThemeProvider, Snackbar, Alert,
+} from '@mui/material';
 import axios from 'axios';
 import Auth from './components/Auth';
 import ChatView from './components/ChatView';
@@ -18,6 +20,11 @@ function App() {
   });
   const [loading, setLoading] = useState(true);
   const [chatClient] = useState(new StreamChat(process.env.REACT_APP_API_KEY));
+  const [snackbarState, setSnackbarState] = useState({
+    open: false,
+    messsage: '',
+    severity: 'success',
+  });
 
   const connectUser = async (moniker, token) => {
     await chatClient.connectUser(
@@ -35,6 +42,15 @@ function App() {
     });
   };
 
+  const onShowSnackbarCallback = (message, severity) => {
+    setSnackbarState({
+      ...snackbarState,
+      open: true,
+      message,
+      severity,
+    });
+  };
+
   const onLoginCallback = (user) => {
     setLoading(true);
     const data = { user: { ...user } };
@@ -42,7 +58,7 @@ function App() {
       .post('http://localhost:3010/users', data)
       .then(async (res) => {
         if (res.data.token === '') {
-          window.alert('Error occurred while authenticating you');
+          onShowSnackbarCallback('Error while authenticating you', 'error');
           return;
         }
 
@@ -51,12 +67,19 @@ function App() {
         sessionStorage.setItem('id', res.data.user.moniker);
       })
       .catch((err) => {
-        console.log('Error logging in', err);
-        window.alert('Could not log you in');
+        onShowSnackbarCallback('Password or username mismatch', 'error');
+        console.error(err);
       })
       .finally(() => {
         setLoading(false);
       });
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarState({
+      ...snackbarState,
+      open: false,
+    });
   };
 
   useEffect(() => {
@@ -75,10 +98,20 @@ function App() {
     <ThemeProvider theme={theme}>
       <Box flexGrow={1} height="100%">
         { !state.isAuthenticated ? (
-          <Auth cb={onLoginCallback} open loading={loading} />
+          <Auth
+            cb={onLoginCallback}
+            open
+            loading={loading}
+            onShowSnackbarCb={onShowSnackbarCallback}
+          />
         ) : (
-          <ChatView chatClient={chatClient} />
+          <ChatView chatClient={chatClient} onShowSnackbarCb={onShowSnackbarCallback} />
         )}
+        <Snackbar open={snackbarState.open} autoHideDuration={2000} onClose={handleSnackbarClose}>
+          <Alert onClose={handleSnackbarClose} severity={snackbarState.severity} sx={{ width: '100%' }}>
+            {snackbarState.message}
+          </Alert>
+        </Snackbar>
       </Box>
     </ThemeProvider>
   );

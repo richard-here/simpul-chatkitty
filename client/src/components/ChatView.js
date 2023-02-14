@@ -4,8 +4,6 @@ import {
   useMediaQuery,
   useTheme, Stack, Dialog, DialogTitle, DialogContent, DialogContentText, TextField,
   Typography,
-  Snackbar,
-  Alert,
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { React, useState } from 'react';
@@ -26,16 +24,16 @@ function ChatView(props) {
   const theme = useTheme();
   const smallerThanBreakpoint = useMediaQuery(theme.breakpoints.down('md'));
   const chatClient = props.chatClient;
+  const { onShowSnackbarCb } = props;
   const [dialogState, setDialogState] = useState({
     open: false,
     groupName: '',
+    groupNameInvalid: false,
+    groupNameHelperText: '',
     username: '',
+    usernameInvalid: false,
+    usernameHelperText: '',
     loading: false,
-  });
-  const [snackbarState, setSnackbarState] = useState({
-    open: false,
-    message: '',
-    severity: 'error',
   });
 
   const filters = { members: { $in: [sessionStorage.getItem('id')] } };
@@ -49,12 +47,41 @@ function ChatView(props) {
       loading: false, open: false, username: '', groupName: '',
     });
   };
-  const handleSnackbarClose = () => {
-    setSnackbarState({
-      ...snackbarState,
-      open: false,
-      message: '',
-    });
+
+  const validateUsername = (inputMoniker) => {
+    const invalid = !/^[a-zA-Z0-9]{6,}$/.test(inputMoniker);
+    if (invalid) {
+      setDialogState({
+        ...dialogState,
+        usernameHelperText: 'Username is required and can only contain alphanumeric characters with a min length of 6',
+        usernameInvalid: true,
+      });
+    } else {
+      setDialogState({
+        ...dialogState,
+        usernameHelperText: '',
+        usernameInvalid: false,
+      });
+    }
+    return invalid;
+  };
+
+  const validateGroupName = (inputGroupName) => {
+    const invalid = !/^.{1,}$/.test(inputGroupName);
+    if (invalid) {
+      setDialogState({
+        ...dialogState,
+        groupNameHelperText: 'Group name is required',
+        groupNameInvalid: true,
+      });
+    } else {
+      setDialogState({
+        ...dialogState,
+        groupNameHelperText: '',
+        groupNameInvalid: false,
+      });
+    }
+    return invalid;
   };
 
   const createChannel = async () => {
@@ -63,7 +90,7 @@ function ChatView(props) {
     const userExist = userQuery.users.length !== 0;
 
     if (!userExist) {
-      setSnackbarState({ open: true, message: 'User you invited does not exist', severity: 'error' });
+      onShowSnackbarCb('User you invited does not exist', 'error');
       handleChannelDialogClose();
       return;
     }
@@ -75,13 +102,13 @@ function ChatView(props) {
     try {
       await newChannel.create();
     } catch (e) {
+      onShowSnackbarCb('An error occurred when creating the chatroom', 'error');
       handleChannelDialogClose();
-      setSnackbarState({ open: true, message: 'An error occurred when creating the chatroom', severity: 'error' });
     }
     setDialogState({
       username: '', groupName: '', loading: false, open: false,
     });
-    setSnackbarState({ open: true, message: 'Chatroom created or already exists', severity: 'success' });
+    onShowSnackbarCb('Chatroom created or already exists', 'success');
   };
 
   return (
@@ -108,14 +135,16 @@ function ChatView(props) {
             To create a new chatroom, name the chatroom and invite an existing
             user account by username.
           </DialogContentText>
-          <Stack direction="row">
+          <Stack direction="column" spacing={2}>
             <TextField
               value={dialogState.groupName}
               onChange={(e) => (setDialogState({ ...dialogState, groupName: e.target.value }))}
               id="group-name"
               label="Group Name"
               variant="outlined"
-              sx={{ marginRight: 2 }}
+              onBlur={(e) => validateGroupName(e.target.value)}
+              error={dialogState.groupNameInvalid}
+              helperText={dialogState.groupNameHelperText}
             />
             <TextField
               value={dialogState.username}
@@ -123,7 +152,9 @@ function ChatView(props) {
               id="group-username"
               label="Username"
               variant="outlined"
-              sx={{ marginRight: 2 }}
+              onBlur={(e) => validateUsername(e.target.value)}
+              error={dialogState.usernameInvalid}
+              helperText={dialogState.usernameHelperText}
             />
             <LoadingButton
               onClick={createChannel}
@@ -137,11 +168,6 @@ function ChatView(props) {
           </Stack>
         </DialogContent>
       </Dialog>
-      <Snackbar open={snackbarState.open} autoHideDuration={1000} onClose={handleSnackbarClose}>
-        <Alert onClose={handleSnackbarClose} severity={snackbarState.severity} sx={{ width: '100%' }}>
-          {snackbarState.message}
-        </Alert>
-      </Snackbar>
     </Stack>
   );
 }
