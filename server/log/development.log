@@ -696,3 +696,152 @@ Processing by UsersController#create as HTML
 Completed 200 OK in 1058ms (Views: 0.3ms | ActiveRecord: 1.7ms | Allocations: 5124)
 
 
+Started POST "/users" for 172.17.0.1 at 2023-02-14 03:18:54 +0000
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 1383ms (Views: 1.0ms | ActiveRecord: 7.2ms | Allocations: 15241)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 04:42:12 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing1", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing1"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 1358ms (Views: 1.0ms | ActiveRecord: 5.7ms | Allocations: 5454)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 04:42:32 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing2", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing2"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 1135ms (Views: 0.3ms | ActiveRecord: 1.6ms | Allocations: 5131)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 04:42:59 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 1123ms (Views: 0.6ms | ActiveRecord: 2.1ms | Allocations: 5134)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 09:07:01 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing1", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing1"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 1379ms (Views: 3.6ms | ActiveRecord: 5.6ms | Allocations: 4983)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 09:43:48 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing1", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing1"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 1630ms (Views: 0.9ms | ActiveRecord: 3.2ms | Allocations: 4945)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 09:56:46 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing1", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing1"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 1270ms (Views: 0.8ms | ActiveRecord: 2.6ms | Allocations: 4940)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 10:18:23 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing1", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing1"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 1288ms (Views: 0.7ms | ActiveRecord: 3.4ms | Allocations: 4936)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 12:48:58 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (4.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 238ms (Views: 2.4ms | ActiveRecord: 12.5ms | Allocations: 781)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 12:50:16 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 192ms (Views: 0.3ms | ActiveRecord: 1.6ms | Allocations: 639)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 12:50:17 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 191ms (Views: 0.4ms | ActiveRecord: 1.5ms | Allocations: 638)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 12:50:30 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 188ms (Views: 0.3ms | ActiveRecord: 1.5ms | Allocations: 638)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 12:50:33 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (2.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 198ms (Views: 1.3ms | ActiveRecord: 2.6ms | Allocations: 641)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 12:50:43 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 188ms (Views: 0.2ms | ActiveRecord: 1.6ms | Allocations: 653)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 12:50:51 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 1287ms (Views: 3.8ms | ActiveRecord: 1.7ms | Allocations: 4800)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 12:51:53 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 200 OK in 1226ms (Views: 1.4ms | ActiveRecord: 1.9ms | Allocations: 5106)
+
+
+Started POST "/users" for 172.17.0.1 at 2023-02-14 13:20:58 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"moniker"=>"testing3", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing3"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[36mUser Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."moniker" = ? LIMIT ?[0m  [["moniker", "testing3"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[36mUser Create (31.9ms)[0m  [1m[32mINSERT INTO "users" ("moniker", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["moniker", "testing3"], ["password_digest", "[FILTERED]"], ["created_at", "2023-02-14 13:20:58.476096"], ["updated_at", "2023-02-14 13:20:58.476096"]]
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[36mTRANSACTION (15.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[36mUser Exists? (1.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."moniker" = ? AND "users"."id" != ? LIMIT ?[0m  [["moniker", "testing3"], ["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."moniker" = ? AND "users"."id" != ? LIMIT ?[0m  [["moniker", "testing3"], ["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:10:in `create'
+Completed 200 OK in 1431ms (Views: 0.7ms | ActiveRecord: 54.9ms | Allocations: 9912)
+
+

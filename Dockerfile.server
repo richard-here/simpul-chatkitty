@@ -1,0 +1,6 @@
+FROM ruby:3.1.2
+WORKDIR /opt/app
+COPY server/ /opt/app
+RUN bundle install
+EXPOSE 3010
+CMD ["rails", "server", "-b", "0.0.0.0", "-p", "3010"]
