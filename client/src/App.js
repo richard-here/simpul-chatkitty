@@ -55,7 +55,7 @@ function App() {
     setLoading(true);
     const data = { user: { ...user } };
     axios
-      .post('http://localhost:3010/users', data)
+      .post('https://simpul-chatkitty.herokuapp.com/users', data)
       .then(async (res) => {
         if (res.data.token === '') {
           onShowSnackbarCallback('Error while authenticating you', 'error');
